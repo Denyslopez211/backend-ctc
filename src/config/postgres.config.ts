@@ -12,6 +12,15 @@ export default class TypeOrmConfig {
       database: config.get('DB_NAME'),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: config.get<boolean>('TYPEORM_SYNCHRONIZE') || true,
+      ssl: config.get<boolean>('DB_SSL') || true,
+      extra: {
+        ssl:
+          config.get<boolean>('DB_SSL') || true
+            ? {
+                rejectUnauthorized: false,
+              }
+            : null,
+      },
     };
   }
 }
